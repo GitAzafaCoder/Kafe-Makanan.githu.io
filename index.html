@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      review-text="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <tit class="name" le>Document</tit>
+    <!-- cnd icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Dongle:wght@300;400;700&family=IM+Fell+Great+Primer+SC&family=Italianno&family=Montserrat:wght@400;700&family=Noto+Sans+Old+Permic&family=Poppins:ital,wght@0,400;0,700;0,800;1,400;1,500&family=Prata&family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- alpine js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- app js -->
+    <script src="src/app.js"></script>
+  </head>
+  <body>
+    <!-- home start -->
+    <section id="utama" x-data="">
+      <nav>
+        <div class="logo">
+          <img src="bahan/navbar/logo.png" alt="" />
+        </div>
+
+        <div class="navbar-nav">
+          <a href="#hero">Utama</a>
+          <a href="#about">Tentang Kami</a>
+          <a href="#Menu">Menu</a>
+          <a href="#galeri">Galeri</a>
+          <a href="#Review">Review</a>
+          <a href="#Order">Pesan</a>
+        </div>
+
+        <div class="icon">
+          <i class="fa-solid fa-magnifying-glass" id="search"></i>
+          <i class="fa-solid fa-heart" id="heart"></i>
+          <i class="fa-solid fa-cart-shopping" id="cart"> </i>
+          <span
+            id="quantity-badge"
+            x-show="$store.cart.quantity"
+            x-text="$store.cart.quantity"
+          ></span>
+          <i class="fa-solid fa-bars" id="menu"></i>
+        </div>
+
+        <!-- search -->
+        <div class="search-form">
+          <input type="search" id="search-box" placeholder="cari disini...." />
+          <label for="search-box "
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></label>
+        </div>
+
+        <!-- cart -->
+        <div class="shopping-cart">
+          <template x-for="(item, index) in $store.cart.items" x-key="index"
+            >>
+            <div class="cart-item">
+              <img :src="`bahan/Cart/${item.img}`" :alt="item.name" />
+              <div class="item-details">
+                <h3 x-text="item.name"></h3>
+                <div class="item-price">
+                  <span x-text="rupiah(item.price)">Rp 30.00</span> &times;
+                  <button id="remove" @click="$store.cart.remove(item.id)">
+                    &minus;
+                  </button>
+                  <span x-text="item.quantity"></span>
+                  <button id="add" @click="$store.cart.add(item)">&plus;</button
+                  >&equals;
+                  <span x-text="rupiah(item.total)"></span>
+                </div>
+              </div>
+            </div>
+          </template>
+          <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">
+            Masih Kosong
+          </h4>
+          <h4 x-show="$store.cart.items.length">
+            Total : <span x-text="rupiah($store.cart.total)"></span>
+          </h4>
+
+          <div class="form-container" x-show="$store.cart.items.length">
+            <form action="" id="checkoutform">
+              <h5>Customer Detail</h5>
+              <label for="name">
+                <span>Name</span>
+                <input type="text" name="name" id="name" />
+              </label>
+
+              <label for="email">
+                <span>Name</span>
+                <input type="email" name="email" id="email" />
+              </label>
+
+              <label for="Phome">
+                <span>Phone</span>
+                <input type="number" name="phone" autocomplete="off" />
+              </label>
+
+              <button
+                class="checkout-button"
+                type="submit"
+                id="checkout-button"
+              >
+                CheckOut
+              </button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <div class="hero" id="hero">
+      <div class="konten">
+        <h1>
+          Dapatkan <span style="color: #fac031">Makanan Segar</span> dengan Cara
+          Mudah.
+        </h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
+          reiciendis quaerat nobis deleniti amet non inventore. Reprehenderit
+          recusandae voluptatibus minus tenetur itaque numquam cum quos dolorem
+          maxime. Quas, quaerat nisi. Lorem ipsum dolor sit, amet consectetur
+          adipisicing elit. Cumque facilis, quaerat cupiditate nulla quibusdam
+          quo sunt esse tempore inventore vel voluptate, amet laudantium
+          adipisci veniam nihil quam molestiae omnis mollitia.
+        </p>
+
+        <div class="main_btn">
+          <a href="#">Order Now</a>
+          <i class="fa-solid fa-angle-right"></i>
+        </div>
+      </div>
+      <div class="gambar">
+        <img src="bahan/hero/main_img.png" alt="" />
+      </div>
+    </div>
+
+    <!-- home end -->
+
+    <!-- About start -->
+    <div class="about" id="about">
+      <div class="main-about">
+        <div class="gambar">
+          <img src="bahan/About/Food-Plate.png" alt="" />
+        </div>
+        <div class="teks-about">
+          <h1><span>About</span>Us</h1>
+          <h3>Why cgoose us?</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita,
+            est. Doloremque sapiente veritatis laboriosam corrupti optio et
+            maxime. Ad, amet explicabo eaque labore cupiditate quasi nostrum
+            nemo recusandae id quibusdam? Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Doloremque ab, dolores pariatur cum
+            exercitationem, illo nisi veritatis vitae ea deleniti fugiat
+            quisquam tempora, accusantium corrupti excepturi optio. Inventore,
+            cupiditate recusandae.
+          </p>
+          <a href="" class="btn-about">Order Now</a>
+        </div>
+      </div>
+    </div>
+    <!-- About end -->
+
+    <!-- menu start -->
+    <div class="menu" id="produks" x-data="produks">
+      <h1><span>Menu </span> kami</h1>
+
+      <div class="kotak-menu">
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="menu-card">
+            <div class="gambar">
+              <img :src="`bahan/Cart/${item.img}`" :alt="item.name" />
+            </div>
+
+            <div class="small-card">
+              <i class="fa-solid fa-heart"></i>
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <div class="menu-info">
+              <h2 x-text="item.name">Biryani</h2>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+                earum mollitia, non ab nisi corporis?
+              </p>
+              <h3 x-text="rupiah(item.price)"></h3>
+              <div class="menu-icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+              <a
+                href="#"
+                class="menu_btn"
+                @click.prevent="$store.cart.add(item)"
+                >Order Now</a
+              >
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+    <!-- menu end -->
+
+    <!-- Gallery start -->
+    <div class="galeri" id="galeri">
+      <h1>Our<span>galeri</span></h1>
+
+      <div class="galeri-box">
+        <div class="galeri-gambar">
+          <img src="bahan/Galeri/gallary_1.jpg" />
+
+          <h3>Food</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+            sint eveniet laboriosam
+          </p>
+          <a href="#" class="galeri-btn">Order Now</a>
+        </div>
+
+        <div class="galeri-gambar">
+          <img src="bahan/Galeri/gallary_2.jpg" />
+
+          <h3>Food</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+            sint eveniet laboriosam
+          </p>
+          <a href="#" class="galeri-btn">Order Now</a>
+        </div>
+
+        <div class="galeri-gambar">
+          <img src="bahan/Galeri/gallary_3.jpg" />
+
+          <h3>Food</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+            sint eveniet laboriosam
+          </p>
+          <a href="#" class="galeri-btn">Order Now</a>
+        </div>
+
+        <div class="galeri-gambar">
+          <img src="bahan/Galeri/gallary_4.jpg" />
+
+          <h3>Food</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+            sint eveniet laboriosam
+          </p>
+          <a href="#" class="galeri-btn">Order Now</a>
+        </div>
+
+        <div class="galeri-gambar">
+          <img src="bahan/Galeri/gallary_5.jpg" />
+
+          <h3>Food</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+            sint eveniet laboriosam
+          </p>
+          <a href="#" class="galeri-btn">Order Now</a>
+        </div>
+
+        <div class="galeri-gambar">
+          <img src="bahan/Galeri/gallary_6.jpg" />
+
+          <h3>Food</h3>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+            sint eveniet laboriosam
+          </p>
+          <a href="#" class="galeri-btn">Order Now</a>
+        </div>
+      </div>
+    </div>
+    <!-- Gallery end -->
+
+    <!-- review start -->
+    <div class="review" id="Review">
+      <h1>Review <span>Kostumer</span></h1>
+      <div class="review-box">
+        <div class="card-review">
+          <div class="profil">
+            <img src="bahan/review/review_1.png" alt="" />
+          </div>
+          <div class="review-text">
+            <h2 class="name">Jon Neo</h2>
+            <div class="icon">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+
+            <div class="review_social">
+              <i class="fa-brands fa-facebook-f"></i>
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-twitter"></i>
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Repellendus quam facere blanditiis in fugiat tempore
+              necessitatibus aliquid. Id adipisci, rem corrupti asperiores
+              distinctio delectus quae quia tenetur totam laboriosam quam. Lorem
+              ipsum, dolor sit amet consectetur adipisicing elit. Dolores soluta
+              ullam ipsa voluptates repudiandae dignissimos deleniti mollitia
+              eum. Laudantium placeat velit nemo illo pariatur. Fuga aperiam
+              impedit illo atque repellendus!
+            </p>
+          </div>
+        </div>
+
+        <div class="card-review">
+          <div class="profil">
+            <img src="bahan/review/review_1.png" alt="" />
+          </div>
+          <div class="review-text">
+            <h2 class="name">Jon Neo</h2>
+            <div class="icon">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <div class="review_social">
+              <i class="fa-brands fa-facebook-f"></i>
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-twitter"></i>
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Repellendus quam facere blanditiis in fugiat tempore
+              necessitatibus aliquid. Id adipisci, rem corrupti asperiores
+              distinctio delectus quae quia tenetur totam laboriosam quam. Lorem
+              ipsum, dolor sit amet consectetur adipisicing elit. Dolores soluta
+              ullam ipsa voluptates repudiandae dignissimos deleniti mollitia
+              eum. Laudantium placeat velit nemo illo pariatur. Fuga aperiam
+              impedit illo atque repellendus!
+            </p>
+          </div>
+        </div>
+
+        <div class="card-review">
+          <div class="profil">
+            <img src="bahan/review/review_1.png" alt="" />
+          </div>
+          <div class="review-text">
+            <h2 class="name">Jon Neo</h2>
+            <div class="icon">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star-half-stroke"></i>
+            </div>
+            <div class="review_social">
+              <i class="fa-brands fa-facebook-f"></i>
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-twitter"></i>
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Repellendus quam facere blanditiis in fugiat tempore
+              necessitatibus aliquid. Id adipisci, rem corrupti asperiores
+              distinctio delectus quae quia tenetur totam laboriosam quam. Lorem
+              ipsum, dolor sit amet consectetur adipisicing elit. Dolores soluta
+              ullam ipsa voluptates repudiandae dignissimos deleniti mollitia
+              eum. Laudantium placeat velit nemo illo pariatur. Fuga aperiam
+              impedit illo atque repellendus!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- review end -->
+
+    <!-- model box start -->
+    <div class="model" id="item-detail-model1">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close1"></i>
+        <div class="model-content">
+          <img src="bahan/menu/biryani.webp" alt="" />
+          <div class="content-produk">
+            <h2>Biryani</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model" id="item-detail-model2">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close2"></i>
+        <div class="model-content">
+          <img src="bahan/menu/buger.jpg" alt="" />
+          <div class="content-produk">
+            <h2>Burger</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model" id="item-detail-model3">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close3"></i>
+        <div class="model-content">
+          <img src="bahan/menu/cake.jpg" alt="" />
+          <div class="content-produk">
+            <h2>Cake</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model" id="item-detail-model4">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close4"></i>
+        <div class="model-content">
+          <img src="bahan/menu/chocolate_Drink.jpg" alt="" />
+          <div class="content-produk">
+            <h2>Cake</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="model" id="item-detail-model4">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close4"></i>
+        <div class="model-content">
+          <img
+            src="bahan/menu/chocolate_Drink.jpg"
+            alt=""
+            style="height: 20rem; width: 50%; height: 50%"
+          />
+          <div class="content-produk">
+            <h2>Choclate Drink</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model" id="item-detail-model5">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close5"></i>
+        <div class="model-content">
+          <img src="bahan/menu/Hot_dog.jpg" alt="" />
+          <div class="content-produk">
+            <h2>Hot Dog</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model" id="item-detail-model6">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close6"></i>
+        <div class="model-content">
+          <img src="bahan/menu/ice_cream.jpg" alt="" />
+          <div class="content-produk">
+            <h2>Ice Cream</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="model" id="item-detail-model7">
+      <div class="model-container">
+        <i class="fa-solid fa-x" id="close7"></i>
+        <div class="model-content">
+          <img src="bahan/menu/juse.jpg" alt="" />
+          <div class="content-produk">
+            <h2>Jus</h2>
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum
+              earum mollitia, non ab nisi corporis?
+            </p>
+            <h3>Rp. 30,000</h3>
+            <div class="review-text">
+              <div class="icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- model box end -->
+    <script src="javascript/script.js"></script>
+  </body>
+</html>
